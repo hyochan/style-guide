@@ -1,6 +1,6 @@
 ## 1. Naming
 
-### 1-1. Naming syntax
+### 1-1. Rules
 1. File - `PascalCase`.tsx
 2. Class - `PascalCase`
 3. Enum - `PascalCase`
@@ -25,8 +25,10 @@ CompanyEdit.tsx
 AddCompany.tsx
 EditCompany.tsx
 ```
+
 For component,
-``` Do
+```ts
+// Do
 function CompanyAdd() {}
 function CompanyEdit() {}
 ```
@@ -43,21 +45,23 @@ const onCompanyDelete = () => {}
 ```
 
 #### 1-2-3. Choose the right boolean prefix
-Usually, developers put all boolean prefix with `is` and it often causes confusion.
-For example,
+Usually, developers put all boolean prefix with `is` and it often causes confusion. For example below.
+
 ```ts
 const isFriend = () => user.friends.length > 0;
 ```
+
 Above code is not quite readable. It'd be better to choose the right prefix. In this case, `hasFried` makes sense.
 
-There are few prefixes you can choose to write instead of "is". Below are other options we can recommend.
+There are a few other prefixes you can choose to write instead of "is". Below are other options we can recommend.
 * has
 * should
 
 Also, we prefer avoiding prefixes in boolean if it looks clear enough to stand by themselves. For examples, we think `loading`, `disabled`, `checked` are better without prefixes.
 
-#### 1-2-3. Async suffix
+#### 1-2-4. Async suffix
 When function returns `Promise` or is an async function, we prefer adding suffix `Async`.
+
 ```ts
 // Do
 function readAsync() {
@@ -73,6 +77,7 @@ async function readAsync() {
 ### 1-3. Avoid redundancy
 
 #### 1-3-1. Avoid adding domain to function when it is predictable.
+
 ```ts
 class User {
   // Don't

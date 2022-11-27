@@ -9,4 +9,10 @@ Readability >>> Feasibility > Capability > Scalability >>> Performance
 
 ### List of conventions rules
 
-- [React & React Native](./REACT.md)
+- [React & React Native](./docs/REACT.md)
+
+
+### Translation
+
+- [EN]()
+- [KO]()
