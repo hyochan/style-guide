@@ -4,10 +4,10 @@
 1. File - `PascalCase`.tsx
 2. Class - `PascalCase`
 3. Enum - `PascalCase`
-	1. Enum values - `UPPER_SNAKE_CASE`
-   ```ts
-   enum DoobooScreen { IOS, ANDROID, HELLO_WORLD, TEST_DEVICE }
-   ```
+  1. Enum values - `UPPER_SNAKE_CASE`
+    ```ts
+    enum DoobooScreen { IOS, ANDROID, HELLO_WORLD, TEST_DEVICE }
+    ```
 4. Constants - `UPPER_SNAKE_CASE`
 5. Object, classes, variables and functions - `camelCase`
 6. Asset file name - `lower_snake_case`.png
@@ -199,8 +199,8 @@ function Button({
   ...
 });
 ```
-   > You can see the exmaple in [Button L62-L63](https://github.com/dooboolab/dooboo-ui/blob/c0d114c46bbba5a8a8a05e91a782a682e4803dac/main/Button/index.tsx#L62-L63).
-   > This lets developers check what kind of styles are nested in the component. It is also easy to handle resuable component's style without knowing what styles are nested in it with `style` prop. The user would just want to change it's `margin` or `padding`.
+  > You can see the exmaple in [Button L62-L63](https://github.com/dooboolab/dooboo-ui/blob/c0d114c46bbba5a8a8a05e91a782a682e4803dac/main/Button/index.tsx#L62-L63).
+  > This lets developers check what kind of styles are nested in the component. It is also easy to handle resuable component's style without knowing what styles are nested in it with `style` prop. The user would just want to change it's `margin` or `padding`.
 
 ### 3-3. Conditional statements
 ### 3-3-1. Guard and early return
@@ -236,7 +236,7 @@ message = 'User is not busy';
 availableForCall(user) ? call('010-xxxx-xxxx') : call('119');
 
 // Do
- call(availableForCall(user) ? '010-xxxx-xxxx' || '119');
+call(availableForCall(user) ? '010-xxxx-xxxx' || '119');
 ```
 > Try to remove the duplication function calls if possible.
 
@@ -311,11 +311,11 @@ const checkString = (str: string) => {
 // Do
 const setYoutubeVideo = async (url: string): Promise<void> => {
   if (urlType === 'youtube') {
-	const videoURL = await getYouTubeDetails(url);
+  const videoURL = await getYouTubeDetails(url);
 
-	if (videoURL) {
-	  setYoutubeURL(videoURL);
-	}
+  if (videoURL) {
+    setYoutubeURL(videoURL);
+  }
   }
 };
 
@@ -357,12 +357,12 @@ function Parent() {
   const [isHighlighted, setIsHighlighted] = useState(false);
 
   return (
-	<div>
-	  <Child
-		style={...{isHighlighted && {color: '#fff'}}}
-		headerColor={isHighlighted ? 'red' : 'blue'}
-	  />
-	</div>
+  <div>
+    <Child
+    style={...{isHighlighted && {color: '#fff'}}}
+    headerColor={isHighlighted ? 'red' : 'blue'}
+    />
+  </div>
   );
 }
 
@@ -371,22 +371,22 @@ function Parent() {
   const [isHighlighted, setIsHighlighted] = useState(false);
 
   if(isHighlighted) {
-	return (
-	  <div>
-		<Child
-		  style={{color: '#fff'}}
-		  headerColor='red'
-		/>
-	</div>
-	)
+  return (
+    <div>
+    <Child
+      style={{color: '#fff'}}
+      headerColor='red'
+    />
+  </div>
+  )
   }
 
   return (
-	<div>
-	  <Child
-		headerColor='blue'
-	  />
-	</div>
+  <div>
+    <Child
+    headerColor='blue'
+    />
+  </div>
   );
 }
 ```
@@ -474,27 +474,27 @@ function Button({
   title,
   onPress
 }: Props): ReactElement {
-	// Don't
-	return type === 'loading' ? ... : type === 'disabled' ? ... : return ...
+    // Don't
+    return type === 'loading' ? ... : type === 'disabled' ? ... : return ...
 
-	// Do
-	// 1. If statement
-	if (type === 'loading') return ...;
-	if (type === 'disabled') return ...;
-	return ...;
+    // Do
+    // 1. If statement
+    if (type === 'loading') return ...;
+    if (type === 'disabled') return ...;
+    return ...;
 
-	// 2. Switch statement
-	switch (type) {
-      case 'loading':
+    // 2. Switch statement
+    switch (type) {
+        case 'loading':
+          return ...
+      case 'disabled':
         return ...
-	  case 'disabled':
-	    return ...
-	  default:
-	    return ...
-	}
-	
-	// 3. Ok with one condition
-	return loading ? ... : return ...
+      default:
+        return ...
+    }
+    
+    // 3. Ok with one condition
+    return loading ? ... : return ...
 }
 ```
 
@@ -506,7 +506,7 @@ function Button(): ReactElement {
   return (
     // Don't
     <TouchableOpacity onPress={() => {
-	    console.log('Hello I am doing something!!!');
+      console.log('Hello I am doing something!!!');
     }}>
       {render?.(type) || <Text>{title}</Text>}
     </TouchableOpacity>
@@ -523,9 +523,9 @@ function Button(): ReactElement {
   );
 };
 ```
-![[4-1. no direct run.png]]
+![[assets/4-1. no direct run.png]]
 
-![[4-1. yes callback.png]]
+![[assets/4-1. yes callback.png]]
 > When UI components have multiple nested child components, try refactoring with provider. We prefer [recoil](https://recoiljs.org) in this case.
 
 
