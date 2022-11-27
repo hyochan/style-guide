@@ -10,4 +10,3 @@
 - [React & React Native](./REACT.md)
 - [Flutter](./FLUTTER.md)
 - [Firestore structure](./FIRESTORE.md)
-

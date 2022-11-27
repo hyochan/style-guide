@@ -5,9 +5,9 @@
 2. Class - `PascalCase`
 3. Enum - `PascalCase`
   1. Enum values - `UPPER_SNAKE_CASE`
-    ```ts
-    enum DoobooScreen { IOS, ANDROID, HELLO_WORLD, TEST_DEVICE }
-    ```
+     ```ts
+     enum DoobooScreen { IOS, ANDROID, HELLO_WORLD, TEST_DEVICE }
+     ```
 4. Constants - `UPPER_SNAKE_CASE`
 5. Object, classes, variables and functions - `camelCase`
 6. Asset file name - `lower_snake_case`.png
@@ -60,7 +60,7 @@ There are a few other prefixes you can choose to write instead of "is". Below ar
 Also, we prefer avoiding prefixes in boolean if it looks clear enough to stand by themselves. For examples, we think `loading`, `disabled`, `checked` are better without prefixes.
 
 #### 1-2-4. Async suffix
-When function returns `Promise` or is an async function, we prefer adding suffix `Async`.
+When the function returns `Promise` or is an async function, we prefer adding suffix `Async`.
 
 ```ts
 // Do
@@ -76,7 +76,7 @@ async function readAsync() {
 
 ### 1-3. Avoid redundancy
 
-#### 1-3-1. Avoid adding domain to function when it is predictable.
+#### 1-3-1. Avoid adding domain to function when it is predictable
 
 ```ts
 class User {
@@ -97,8 +97,8 @@ class User {
 ## 2. Folder structures
 
 ### 2-1. Assets
-### 2-1-1. Seperate assets from sourcecode
-Assets are all resources used in application. They should not stay at the same level with sourcecode.
+### 2-1-1. Separate assets from the sourcecode
+Assets are all kinds of resources used in applications. They should not stay at the same level with sourcecode.
 
 ```
 YourApp/
@@ -109,8 +109,9 @@ YourApp/
 ├─ src/
 ```
 
-### 2-1-2. Seperate the config files
-Config files should be seperated from the sourcecode.
+### 2-1-2. Separate the config files
+Config files should be separated from the sourcecode.
+
 ```
 YourApp/
 ├─ src/
@@ -128,10 +129,10 @@ YourApp/
 ├─ tsconfig.json
 └─ eslint.config.js
 ```
-> The config files for jest, babel, eslint, typescript, flow, git are all seperated from the `src` directory.
+> The config files for jest, babel, eslint, typescript, flow, git are all separated from the `src` directory.
 
 ### 2-2. Tests
-### 2-2-1. Test extention files should be included in `test` dir
+### 2-2-1. Test extension files in `test` dir
 ```
 YourApp/
 ├─ src/
@@ -145,15 +146,15 @@ YourApp/
 │     └─ pages
 │        └─ HelloWorld.test.tsx
 ```
-> Test files should all lie underder `test` dir.
+> Test files should all lie underd `test` dir.
 
-### 2-2-2. Spec files are included in `src` dir
+### 2-2-2. Unit tests can be included in `src`
 ```
 YourApp/
 ├─ src/
 │  └─ utils/
 │     └─ localize.ts
-│     └─ localize.spec.ts <=== Unit test stays along with original file
+│     └─ localize.spec.ts <=== Unit test may stay along with the original file
 ```
 
 ### 2-2-3. Mock files in `__mocks__` dir
@@ -165,9 +166,15 @@ YourApp/
 
 ## 3. Code Style
 
-### 3-1. Function
+### 3-1. Import
 
-#### 3-1-1. Function needs return type
+#### 3-1-1. Follows the dooboolab eslint package
+
+Follow the import rules of `@dooboo/eslint-config-react` for React and `@dooboo/eslint-config-react-native` for React Native.
+
+### 3-2. Function
+
+#### 3-2-1. Function needs return type
 ```tsx
 // Don't
 function Page({}: Props) {}
@@ -176,7 +183,7 @@ function Page({}: Props) {}
 function Page({}: Props): ReactElement {}
 ```
 
-### 3-1-1. Prefer function component and without arrow function
+### 3-2-2. Function component without arrow function
 
 ```tsx
 // Don't
@@ -187,8 +194,8 @@ class Page extends ReactComponent {}
 function Page({}: Props): ReactElement {}
 ```
 
-### 3-2. Style props
-#### 3-2-1. Expose all style props in `styles` and parent style with `style` prop.
+### 3-3. Style props
+#### 3-3-1. All style props in `styles` and style of current component in `style`
 ```tsx
 type Styles = {
   container?: StyleProp<ViewStyle>;
@@ -205,10 +212,10 @@ function Button({
 });
 ```
   > You can see the exmaple in [Button L62-L63](https://github.com/dooboolab/dooboo-ui/blob/c0d114c46bbba5a8a8a05e91a782a682e4803dac/main/Button/index.tsx#L62-L63).
-  > This lets developers check what kind of styles are nested in the component. It is also easy to handle resuable component's style without knowing what styles are nested in it with `style` prop. The user would just want to change it's `margin` or `padding`.
+  > This lets developers check what kind of styles are nested in the component. It is also easy to handle reusable component's style without knowing what styles are nested with the `style` prop. The user would want to change its `margin` or `padding`.
 
-### 3-3. Conditional statements
-### 3-3-1. Guard and early return
+### 3-4. Conditional statements
+### 3-4-1. Guard and early return
 
 ```ts
 // Don't
@@ -235,7 +242,7 @@ message = 'User is not busy';
 ```
 > [Replace nested conditional with guard clauses](https://refactoring.guru/replace-nested-conditional-with-guard-clauses) makes your statements more concise and readable.
 
-### 3-3-2. Simplify duplicate function call
+### 3-4-2. Simplify duplicate function call
 ```ts
 // Don't
 availableForCall(user) ? call('010-xxxx-xxxx') : call('119');
@@ -245,8 +252,8 @@ call(availableForCall(user) ? '010-xxxx-xxxx' || '119');
 ```
 > Try to remove the duplication function calls if possible.
 
-### 3-3-3. Table Driven method
-Table driven method help you build better software with decision tables in place of `if-else`.
+### 3-4-3. Table Driven method
+Table driven method helps you build better software with decision tables in place of `if-else`.
 ```ts
 // Don't
 public string GetMontName(int month, string language) {
@@ -286,7 +293,7 @@ public string GetMonthName(string language, int month) => monthDictionary[langua
 ```
 > Refer to [article](https://medium.com/swlh/replacing-logical-statements-with-table-driven-methods-da1114512134).
 
-### 3-3-4. Extract function
+### 3-4-4. Extract function
 Extracting function is often used to make code more readable.
 ```ts
 // Don't
@@ -329,9 +336,9 @@ setYoutubeVideo(url);
 > It is ambiguous to know what the developer aims for when writing `if (str.length % 2)` until newcomers dissect the logic. Try to extract the function and make it more meaninful. Also, the [youtube video](https://www.youtube.com/watch?v=0GiyKv6ozP8) teaches you how to extract the function in vscode more easily.
 
 
-### 3-4. Component
+### 3-5. Component
 
-#### 3-4-1. No arrow function
+#### 3-5-1. No arrow function
 ```tsx
 // Do
 function Page({}: Props): ReactElement {
@@ -344,7 +351,7 @@ function Page({}: Props): ReactElement {
 ```
 > Also, see [templates in dooboo-cli](https://github.com/dooboolab/dooboo-cli/blob/main/templates/react-native/templates/Template.tsx).
 
-#### 3-4-2. No `&&` operator when rendering
+#### 3-5-2. No `&&` operator when rendering
 ```tsx
 // don't
 {list.length && <div>{list.map((item) => (...))}</div>}
@@ -354,7 +361,7 @@ function Page({}: Props): ReactElement {
 ```
 > Find out more [in the link](https://kentcdodds.com/blog/use-ternaries-rather-than-and-and-in-jsx) for the decision.
 
-#### 3-4-3. Extract duplicate conditions in props
+#### 3-5-3. Extract duplicate conditions in props
 If there are same conditions used multiple times inside props, extract them to conditional statement like below.
 ```tsx
 // Don't
@@ -376,29 +383,29 @@ function Parent() {
   const [isHighlighted, setIsHighlighted] = useState(false);
 
   if(isHighlighted) {
-  return (
-    <div>
-    <Child
-      style={{color: '#fff'}}
-      headerColor='red'
-    />
-  </div>
-  )
+    return (
+      <div>
+      <Child
+        style={{color: '#fff'}}
+        headerColor='red'
+      />
+    </div>
+    )
   }
 
   return (
-  <div>
-    <Child
-    headerColor='blue'
-    />
-  </div>
+    <div>
+      <Child
+      headerColor='blue'
+      />
+    </div>
   );
 }
 ```
 > Here, `isHighlighted` is used more than one in `Child` component props. Extracting them makes it more maintainable because we can concentrate on the target code instead of the side effect.
 > Also note that using `&&` operator is good in props like `{isHighlighted && {color: '#fff'}` unlike **[1-2]()**.
 
-#### 3-4-4. Concise and flexible
+#### 3-5-4. Concise and flexible
 Try to make props as simple as possible but flexible. You can able to achieve this by justifying minimal requirements and handing over authority to users if more specs are required.
 For example, below `Button` has type `loading` and `disabled` and have `title` and `onPress` function.
 ```tsx
@@ -428,6 +435,7 @@ function Button({
 };
 ```
 If above code is the minimal requirement to use in the product, keep it the way it is and expose possibility with render function instead of exposing more and more props.
+
 ```tsx
 type Props = {
   type?: 'loading' | 'disabled' | undefined,
@@ -459,7 +467,7 @@ function Button({
 ```
 > Current habits will help developers prevent producing abstruse components as the possibility grows.
 
-#### 3-4-5.  No `single` attributes in style props.
+#### 3-5-5. Avoid adding a single property to style props
 ```tsx
 // Do
 <Button textStyle={textStyle} />
@@ -467,10 +475,10 @@ function Button({
 // Don't
 <Button textColor={textColor} />
 ```
-> Exposing single attrs in style props leads to unmaintainable complicated component with unorgnized props. Example [flutter_calendar_carousel](https://github.com/dooboolab/flutter_calendar_carousel).
+> Exposing a single attribute in style props leads to creating not only complicated but also unmaintainable components. Example [flutter_calendar_carousel](https://github.com/dooboolab/flutter_calendar_carousel).
 
 
-#### 3-4-6. Avoid using the ternary operator with multiple conditions
+#### 3-5-6. Avoid using the ternary operator with multiple conditions
 If [ternary operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) is used multiple times when rendering, it hurts <span style="color: #00D9D5">readability</span>.
 ```tsx
 function Button({
@@ -498,13 +506,13 @@ function Button({
         return ...
     }
     
-    // 3. Ok with one condition
+    // 3. Good with single condition
     return loading ? ... : return ...
 }
 ```
 
-### 3-5. Reusabe Component
-#### 3-5-1. Never directly run the logic
+### 3-6. Reusable Component
+#### 3-6-1. Never directly run the logic
 ```tsx
 // Don't
 function Button(): ReactElement {
@@ -535,9 +543,9 @@ function Button(): ReactElement {
 > When UI components have multiple nested child components, try refactoring with provider. We prefer [recoil](https://recoiljs.org) in this case.
 
 
-### 3-6. Types
+### 3-7. Types
 
-### 3-6-1. Prefer using `type` instead of `interface`
+### 3-7-1. Prefer using `type` instead of `interface`
 ```ts
 // Don't => But only when needed
 interface Props {}
@@ -546,7 +554,7 @@ interface Props {}
 type Props = {}
 ```
 
-### 3-6-2. Don't inject type when it can be inferred
+### 3-7-2. Don't inject type when it can be inferred
 ```ts
 // Don't
 const name = useState<string>('');

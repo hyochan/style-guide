@@ -1,13 +1,13 @@
-## 1. Naming
+## 1. 네이밍
 
-### 1-1. Rules
+### 1-1. 규칙
 1. File - `PascalCase`.tsx
 2. Class - `PascalCase`
 3. Enum - `PascalCase`
   1. Enum values - `UPPER_SNAKE_CASE`
-    ```ts
-    enum DoobooScreen { IOS, ANDROID, HELLO_WORLD, TEST_DEVICE }
-    ```
+     ```ts
+     enum DoobooScreen { IOS, ANDROID, HELLO_WORLD, TEST_DEVICE }
+     ```
 4. Constants - `UPPER_SNAKE_CASE`
 5. Object, classes, variables and functions - `camelCase`
 6. Asset file name - `lower_snake_case`.png
@@ -27,7 +27,7 @@ AddCompany.tsx
 EditCompany.tsx
 ```
 
-For components, name them like below.
+구성 요소의 경우 아래와 같이 이름을 지정합니다.
 
 ```ts
 // Do
@@ -46,7 +46,7 @@ const onCompanyAdd = () => {}
 const onCompanyDelete = () => {}
 ```
 
-#### 1-2-3. Choose the right boolean prefix
+#### 1-2-3. 올바른 boolean prefix 사용
 일반적으로 많은 개발자들이 모든 부울 접두사를 `is`로 지정하며 종종 혼란을 야기합니다. 아래 코드를 예로 들어보겠습니다.
 
 ```ts
@@ -63,7 +63,8 @@ const isFriend = () => user.friends.length > 0;
 
 
 #### 1-2-4. Async suffix
-When function returns `Promise` or is an async function, we prefer adding suffix `Async`.
+
+함수가 `Promise`를 반환하거나 비동기 함수인 경우 접미사 `Async`를 추가하는 것을 권장합니다.
 
 ```ts
 // Do
@@ -77,9 +78,9 @@ async function readAsync() {
 }
 ```
 
-### 1-3. Avoid redundancy
+### 1-3. 불필요함 방지
 
-#### 1-3-1. Avoid adding domain to function when it is predictable.
+#### 1-3-1. 예측 가능한 함수에 도메인 제외
 ```ts
 class User {
   // Don't
@@ -95,11 +96,11 @@ class User {
 }
 ```
 
-## 2. Folder structures
+## 2. 폴더 구조
 
 ### 2-1. Assets
-### 2-1-1. Seperate assets from sourcecode
-Assets are all resources used in application. They should not stay at the same level with sourcecode.
+### 2-1-1. Asset을 소스코드와 분리
+자산은 애플리케이션에서 사용되는 모든 종류의 리소스입니다. 그들은 소스 코드와 같은 수준에 머물러서는 안됩니다.
 
 ```
 YourApp/
@@ -110,8 +111,9 @@ YourApp/
 ├─ src/
 ```
 
-### 2-1-2. Seperate the config files
-Config files should be seperated from the sourcecode.
+### 2-1-2. 설정 파일을 소소코드로부터 분리
+구성 파일은 소스 코드와 분리되어야 합니다.
+
 ```
 YourApp/
 ├─ src/
@@ -129,10 +131,10 @@ YourApp/
 ├─ tsconfig.json
 └─ eslint.config.js
 ```
-> The config files for jest, babel, eslint, typescript, flow, git are all seperated from the `src` directory.
+> jest, babel, eslint, typescript, flow, git에 대한 구성 파일은 모두 `src` 디렉토리에서 분리됩니다.
 
 ### 2-2. Tests
-### 2-2-1. Test extention files should be included in `test` dir
+### 2-2-1. 테스트 확장 파일은 `test` 디렉토리에 포함
 ```
 YourApp/
 ├─ src/
@@ -146,15 +148,15 @@ YourApp/
 │     └─ pages
 │        └─ HelloWorld.test.tsx
 ```
-> Test files should all lie underder `test` dir.
+> 테스트 파일은 모두 `test` 디렉토리 아래에 있어야 합니다.
 
-### 2-2-2. Spec files are included in `src` dir
+### 2-2-2. Unit test는 `src` 디렉토리에 포함되어도 무방
 ```
 YourApp/
 ├─ src/
 │  └─ utils/
 │     └─ localize.ts
-│     └─ localize.spec.ts <=== Unit test stays along with original file
+│     └─ localize.spec.ts <=== Unit test may stays along with original file
 ```
 
 ### 2-2-3. Mock files in `__mocks__` dir
@@ -164,11 +166,18 @@ YourApp/
 │  └─ reanimated-masonry-list.ts
 ```
 
-## 3. Code Style
+## 3. 코드 스타일
 
-### 3-1. Function
+### 3-1. Import
 
-#### 3-1-1. Function needs return type
+#### 3-1-1. dooboolab eslint 패키지를 따름
+
+React의 경우 `@dooboo/eslint-config-react`, React Native의 경우 `@dooboo/eslint-config-react-native`의 import 규칙을 따릅니다.
+
+### 3-2. 함수
+
+#### 3-2-1. 함수에 리턴타입을 명시
+
 ```tsx
 // Don't
 function Page({}: Props) {}
@@ -177,7 +186,7 @@ function Page({}: Props) {}
 function Page({}: Props): ReactElement {}
 ```
 
-### 3-1-1. Prefer function component and without arrow function
+### 3-2-2. 화살표가 없는 함수 컴포넌트
 
 ```tsx
 // Don't
@@ -188,8 +197,10 @@ class Page extends ReactComponent {}
 function Page({}: Props): ReactElement {}
 ```
 
-### 3-2. Style props
-#### 3-2-1. Expose all style props in `styles` and parent style with `style` prop.
+### 3-3. 스타일 프롭스
+
+#### 3-3-1. 모든 스타일 프롭스는 `styles`에 그리고 현 컴포넌트의 스타일은 `style`에 담기
+
 ```tsx
 type Styles = {
   container?: StyleProp<ViewStyle>;
@@ -205,11 +216,12 @@ function Button({
   ...
 });
 ```
-  > You can see the exmaple in [Button L62-L63](https://github.com/dooboolab/dooboo-ui/blob/c0d114c46bbba5a8a8a05e91a782a682e4803dac/main/Button/index.tsx#L62-L63).
-  > This lets developers check what kind of styles are nested in the component. It is also easy to handle resuable component's style without knowing what styles are nested in it with `style` prop. The user would just want to change it's `margin` or `padding`.
+  > [Button L62-L63](https://github.com/dooboolab/dooboo-ui/blob/c0d114c46bbba5a8a8a05e91a782a682e4803dac/main/Button/index.tsx#L62-L63)에서 예제를 볼 수 있습니다.
+  > 이를 통해 개발자는 구성 요소에 어떤 종류의 스타일이 중첩되어 있는지 확인할 수 있습니다. 또한 어떤 스타일이 `style` prop과 중첩되어 있는지 몰라도 재사용 가능한 컴포넌트의 스타일을 쉽게 처리할 수 있습니다. 사용자는 `margin` 또는 `padding`을 변경하려고 합니다.
 
-### 3-3. Conditional statements
-### 3-3-1. Guard and early return
+### 3-4. 조건문
+
+### 3-4-1. 가드와 조기 리턴
 
 ```ts
 // Don't
@@ -233,10 +245,12 @@ if (checkStatus(user) !== 'busy') {
 }
 
 message = 'User is not busy';
-```
-> [Replace nested conditional with guard clauses](https://refactoring.guru/replace-nested-conditional-with-guard-clauses) makes your statements more concise and readable.
 
-### 3-3-2. Simplify duplicate function call
+```
+> [가드 절로 중첩된 조건문 교체](https://refactoring.guru/replace-nested-conditional-with-guard-clauses)를 사용하면 문장이 더 간결하고 읽기 쉬워집니다.
+
+### 3-4-2. 중복 함수 호출 단순화
+
 ```ts
 // Don't
 availableForCall(user) ? call('010-xxxx-xxxx') : call('119');
@@ -244,10 +258,12 @@ availableForCall(user) ? call('010-xxxx-xxxx') : call('119');
 // Do
 call(availableForCall(user) ? '010-xxxx-xxxx' || '119');
 ```
-> Try to remove the duplication function calls if possible.
+> 가능하면 중복 함수 호출을 제거하십시오.
 
-### 3-3-3. Table Driven method
-Table driven method help you build better software with decision tables in place of `if-else`.
+### 3-4-3. 테이블 기반 메소드
+
+테이블 기반 방법은 `if-else` 대신 결정 테이블을 사용하여 더 나은 소프트웨어를 구축하도록 도와줍니다.
+
 ```ts
 // Don't
 public string GetMontName(int month, string language) {
@@ -287,7 +303,7 @@ public string GetMonthName(string language, int month) => monthDictionary[langua
 ```
 > Refer to [article](https://medium.com/swlh/replacing-logical-statements-with-table-driven-methods-da1114512134).
 
-### 3-3-4. Extract function
+### 3-4-4. Extract function
 Extracting function is often used to make code more readable.
 ```ts
 // Don't
@@ -330,9 +346,9 @@ setYoutubeVideo(url);
 > It is ambiguous to know what the developer aims for when writing `if (str.length % 2)` until newcomers dissect the logic. Try to extract the function and make it more meaninful. Also, the [youtube video](https://www.youtube.com/watch?v=0GiyKv6ozP8) teaches you how to extract the function in vscode more easily.
 
 
-### 3-4. Component
+### 3-5. Component
 
-#### 3-4-1. No arrow function
+#### 3-5-1. No arrow function
 ```tsx
 // Do
 function Page({}: Props): ReactElement {
@@ -345,7 +361,7 @@ function Page({}: Props): ReactElement {
 ```
 > Also, see [templates in dooboo-cli](https://github.com/dooboolab/dooboo-cli/blob/main/templates/react-native/templates/Template.tsx).
 
-#### 3-4-2. No `&&` operator when rendering
+#### 3-5-2. No `&&` operator when rendering
 ```tsx
 // don't
 {list.length && <div>{list.map((item) => (...))}</div>}
@@ -355,7 +371,7 @@ function Page({}: Props): ReactElement {
 ```
 > Find out more [in the link](https://kentcdodds.com/blog/use-ternaries-rather-than-and-and-in-jsx) for the decision.
 
-#### 3-4-3. Extract duplicate conditions in props
+#### 3-5-3. Extract duplicate conditions in props
 If there are same conditions used multiple times inside props, extract them to conditional statement like below.
 ```tsx
 // Don't
@@ -399,7 +415,7 @@ function Parent() {
 > Here, `isHighlighted` is used more than one in `Child` component props. Extracting them makes it more maintainable because we can concentrate on the target code instead of the side effect.
 > Also note that using `&&` operator is good in props like `{isHighlighted && {color: '#fff'}` unlike **[1-2]()**.
 
-#### 3-4-4. Concise and flexible
+#### 3-5-4. Concise and flexible
 Try to make props as simple as possible but flexible. You can able to achieve this by justifying minimal requirements and handing over authority to users if more specs are required.
 For example, below `Button` has type `loading` and `disabled` and have `title` and `onPress` function.
 ```tsx
@@ -458,9 +474,9 @@ function Button({
   );
 };
 ```
-> Current habits will help developers prevent producing abstruse components as the possibility grows.
+> 테이블 기반 방법론은 `if-else` 대신 의사결정 테이블을 사용하여 더 나은 소프트웨어를 구축하도록 도와줍니다.
 
-#### 3-4-5.  No `single` attributes in style props.
+#### 3-5-5. 스타일 프롭스에 단일 속성 추가 방지
 ```tsx
 // Do
 <Button textStyle={textStyle} />
@@ -468,11 +484,11 @@ function Button({
 // Don't
 <Button textColor={textColor} />
 ```
-> Exposing single attrs in style props leads to unmaintainable complicated component with unorgnized props. Example [flutter_calendar_carousel](https://github.com/dooboolab/flutter_calendar_carousel).
+> 스타일 프롭스에 단일 속성을 노출하면 복잡할 뿐만 아니라 구성 요소들을 유지 관리하기 어려워집니다. 예 [flutter_calendar_carousel](https://github.com/dooboolab/flutter_calendar_carousel).
 
 
-#### 3-4-6. Avoid using the ternary operator with multiple conditions
-If [ternary operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) is used multiple times when rendering, it hurts <span style="color: #00D9D5">readability</span>.
+#### 3-5-6. 여러 조건에 삼항 연산자 사용 방지
+렌더링 시 [삼항 연산자](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator)를 여러 번 사용하면 <span style="color: #00D9D5 ">가독성</span>이 떨어집니다.
 ```tsx
 function Button({
   type,
@@ -499,13 +515,13 @@ function Button({
         return ...
     }
     
-    // 3. Ok with one condition
+    // 3. Good with single condition
     return loading ? ... : return ...
 }
 ```
 
-### 3-5. Reusabe Component
-#### 3-5-1. Never directly run the logic
+### 3-6. 재사용 컴포넌트
+#### 3-6-1. 논리를 직접 실행 차단
 ```tsx
 // Don't
 function Button(): ReactElement {
@@ -533,12 +549,12 @@ function Button(): ReactElement {
 
 <img src="https://github.com/hyochan/code-convention/blob/main/assets/4-1.%20yes%20callback.png" width="420"/>
 
-> When UI components have multiple nested child components, try refactoring with provider. We prefer [recoil](https://recoiljs.org) in this case.
+> UI 구성 요소에 중첩된 자식 구성 요소가 여러 개 있는 경우 공급자를 사용하여 리팩터링을 시도하십시오. 이 경우 [recoil](https://recoiljs.org)을 선호합니다.
 
 
-### 3-6. Types
+### 3-7. 타입
 
-### 3-6-1. Prefer using `type` instead of `interface`
+### 3-7-1. `Interface` 대신 `Type` 사용 선호
 ```ts
 // Don't => But only when needed
 interface Props {}
@@ -547,7 +563,7 @@ interface Props {}
 type Props = {}
 ```
 
-### 3-6-2. Don't inject type when it can be inferred
+### 3-7-2. 유추할 수 있는 타입 주입 방지
 ```ts
 // Don't
 const name = useState<string>('');

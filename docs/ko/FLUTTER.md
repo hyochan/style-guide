@@ -76,9 +76,9 @@ async function readAsync() async {
 }
 ```
 
-### 1-3. Avoid redundancy
+### 1-3. 불필요함 방지
 
-#### 1-3-1. Avoid adding domain to function when it is predictable.
+#### 1-3-1. 예측 가능한 함수에 도메인 제외
 ```dart
 class User {
   // Don't
@@ -96,11 +96,55 @@ class User {
 
 ## 2. 폴더 구조
 
+### 2-1. Assets
+### 2-1-1. Asset을 소스코드와 분리
+자산은 애플리케이션에서 사용되는 모든 종류의 리소스입니다. 그들은 소스 코드와 같은 수준에 머물러서는 안됩니다.
+
+```
+YourApp/
+├─ assets
+│  └─ icons
+│  └─ images
+│  └─ localizations
+├─ src/
+```
+
+### 2-1-2. 설정 파일과 소소코드 분리
+구성 파일은 소스 코드와 분리되어야 합니다.
+
+```
+YourApp/
+├─ lib/
+├─ .firebaserc
+├─ firebase.json
+├─ .gitattributes
+├─ .gitignore
+└─ .env
+```
+> firebase 관련, git 등의 구성 파일은 모두 `src` 디렉토리에서 분리됩니다.
+
+### 2-2. 테스트
+### 2-2-1. 테스트 확장 파일은 `test` 디렉토리에 포함
+```
+YourApp/
+├─ src/
+│  └─ components/
+│     └─ pages/
+│        └─ HelloWorld.tsx
+│     └─ uis/
+│  └─ providers/
+├─ test/
+│  └─ components/
+│     └─ pages
+│        └─ HelloWorld.test.tsx
+```
+> 테스트 파일은 모두 `test` 디렉토리 아래에 있어야 합니다.
+
 ## 3. 코드 스타일
 
-### 3-1. Import 문
+### 3-1. Import
 
-#### 3-1-1. 현재 제품의 패키지는 `show`를 붙입니다.
+#### 3-1-1. 현 패키지에 `show` 활용
 현재 어플리케이션 패키지는 `show`를 되도록 사용해줍니다. 다른 패키지들은 사용하지 않습니다.
 
 ```dart
@@ -121,7 +165,7 @@ import 'package:kingtalk/widgets/common/styles.dart'
 ...
 ```
 
-### 3-2. Grouping
+### 3-2. 그룹화
 
 #### 3-2-1. 도메인 별로 파일 생성 및 클래스 묶기
 `discussion_provider.dart` 파일 안에 `MyCompaniesDiscussionsState`, `CompaniesDiscussionsState` 들을 관리할 수 있습니다. 이는 같은 도메인에 대한 로직을 수행하므로 한 파일에서도 충분히 알아볼 수 있습니다.
@@ -182,8 +226,8 @@ Stream은 굉장히 fragile하므로 초심자가 다루기 어렵습니다. 따
 구독하는 stream을 새로운 리스트를 불러올 때마다 업데이트 해줘야하는데 스테이트 복잡성이 늘어납니다.
 
 ### 3-6. FlatList
-#### 3-6-1. Overfetching을 방지
-Overfetching을 방지하기 위해 마지막 리스트 아이디 상태 변수를 관리해주세요.
+#### 3-6-1. Over fetching을 방지
+Over fetching을 방지하기 위해 마지막 리스트 아이디 상태 변수를 관리해주세요.
 ```dart
 var lastListIdState = useState<String?>(null);
 
@@ -215,7 +259,7 @@ final loading = useState(false);
 
 ### 4-1. State 변수와의 활용
 
-#### 4-1-1. Async 함수를 호출 한 이후에는 꼭 `context.mounted`를 확인해주세요.
+#### 4-1-1. Async 함수를 호출 한 이후에는 꼭 `context.mounted`를 확인
 ```dart
 var users = await getUsers();
 
@@ -224,8 +268,9 @@ if (context.mounted) {
 }
 ```
 > 레퍼런스: https://github.com/flutter/flutter/issues/110694
+> 위 패턴이 싫다면 provider 등으로 코드 리팩토링을 고민해보세요.
 
-### 1-2. 절대로 아래와 같이 state 변수에 바로 `await` 문을 써서 대입하지 마세요.
+### 4-1-2. state 변수에 `await` 함수 호출 및 대입
 ```dart
 discussionState.value =
             await DiscussionRepository.instance.companiesDiscussions();
@@ -264,4 +309,4 @@ if (context.mounted) {
   loading.value = false;
 }
 ```
-> 꼭 복수 `column`을 검색이 불가피할 때는 두개의 쿼리를 검색해서 중복을 방지하는 코드를 작성하세요. Firestore는 `or` 쿼리를 수행할 수 없습니다.
+> 복수 `column` 검색을 꼭 해야할 경우에는 두개의 쿼리를 검색해서 중복을 방지하는 코드를 작성하세요. Firestore는 `or` 쿼리를 수행할 수 없습니다.
