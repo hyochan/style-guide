@@ -402,8 +402,8 @@ function Parent() {
   );
 }
 ```
-> Here, `isHighlighted` is used more than one in `Child` component props. Extracting them makes it more maintainable because we can concentrate on the target code instead of the side effect.
-> Also note that using `&&` operator is good in props like `{isHighlighted && {color: '#fff'}` unlike **[1-2]()**.
+> Here, `isHighlighted` is used more than once in `Child` component props. Extracting them makes it more maintainable because we can concentrate on the target code instead of the side effect.
+> Also note that using `&&` operator is good in props like `{isHighlighted && {color: '#fff'}` unlike **[3-5-2](#3-5-2-no--operator-when-rendering)**.
 
 #### 3-5-4. Concise and flexible
 Try to make props as simple as possible but flexible. You can able to achieve this by justifying minimal requirements and handing over authority to users if more specs are required.
@@ -434,7 +434,7 @@ function Button({
   );
 };
 ```
-If above code is the minimal requirement to use in the product, keep it the way it is and expose possibility with render function instead of exposing more and more props.
+If the above code is the minimal requirement to use in the product, keep it the way it is and expose the possibility with the render callback function instead of exposing more and more props.
 
 ```tsx
 type Props = {

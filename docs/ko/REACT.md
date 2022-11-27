@@ -35,7 +35,7 @@ function CompanyAdd() {}
 function CompanyEdit() {}
 ```
 
-#### 1-2-2. Use suffixes to functions if there is a domain
+#### 1-2-2. 도메인이 있는 경우 함수명에 suffix 추가
 ```ts
 // Do
 const onAddCompany = () => {}
@@ -303,8 +303,8 @@ public string GetMonthName(string language, int month) => monthDictionary[langua
 ```
 > Refer to [article](https://medium.com/swlh/replacing-logical-statements-with-table-driven-methods-da1114512134).
 
-### 3-4-4. Extract function
-Extracting function is often used to make code more readable.
+### 3-4-4. 함수 추출
+함수 추출은 종종 코드를 더 읽기 쉽게 만드는 데 사용됩니다.
 ```ts
 // Don't
 const checkString = (str: string) => {
@@ -343,12 +343,12 @@ const setYoutubeVideo = async (url: string): Promise<void> => {
 
 setYoutubeVideo(url);
 ```
-> It is ambiguous to know what the developer aims for when writing `if (str.length % 2)` until newcomers dissect the logic. Try to extract the function and make it more meaninful. Also, the [youtube video](https://www.youtube.com/watch?v=0GiyKv6ozP8) teaches you how to extract the function in vscode more easily.
+> 개발자가 `if (str.length % 2)` 코드를 작성하면 코드를 처음보는 개발자는 로직을 해부하기 전까지 코드의 의도를 알 수 없습니다. 이럴 때는 함수를 추출하여 더 의미 있게 만들어야 합니다. 또한 [youtube 동영상](https://www.youtube.com/watch?v=0GiyKv6ozP8)은 vscode에서 함수를 보다 쉽게 ​​추출하는 방법을 알려줍니다.
 
 
-### 3-5. Component
+### 3-5. 컴포넌트
 
-#### 3-5-1. No arrow function
+#### 3-5-1. Arrow 함수 사용 방지
 ```tsx
 // Do
 function Page({}: Props): ReactElement {
@@ -361,7 +361,7 @@ function Page({}: Props): ReactElement {
 ```
 > Also, see [templates in dooboo-cli](https://github.com/dooboolab/dooboo-cli/blob/main/templates/react-native/templates/Template.tsx).
 
-#### 3-5-2. No `&&` operator when rendering
+#### 3-5-2. 렌더링 시 `&&` 연산자 사용 방지
 ```tsx
 // don't
 {list.length && <div>{list.map((item) => (...))}</div>}
@@ -371,8 +371,8 @@ function Page({}: Props): ReactElement {
 ```
 > Find out more [in the link](https://kentcdodds.com/blog/use-ternaries-rather-than-and-and-in-jsx) for the decision.
 
-#### 3-5-3. Extract duplicate conditions in props
-If there are same conditions used multiple times inside props, extract them to conditional statement like below.
+#### 3-5-3. 프롭스 안에서 중복 조건 추출
+props 내에서 동일한 조건이 여러 번 사용된 경우 아래와 같이 조건문으로 추출합니다.
 ```tsx
 // Don't
 function Parent() {
@@ -412,12 +412,12 @@ function Parent() {
   );
 }
 ```
-> Here, `isHighlighted` is used more than one in `Child` component props. Extracting them makes it more maintainable because we can concentrate on the target code instead of the side effect.
-> Also note that using `&&` operator is good in props like `{isHighlighted && {color: '#fff'}` unlike **[1-2]()**.
+> 여기서 `isHighlighted` 조건은 `Child` 컴포넌트 프롭스에서 두 번 이상 사용됩니다. 이를 추출하여 유지보수 시 개발자들이 부작용 대신 대상 코드에 집중할 수 있게 도와줍니다.
+> 또한 `&&` 연산자를 사용하는 것은 **[3-5-2](#3-5-2-렌더링-시--연산자-사용-방지)**와 달리 `{isHighlighted && {color: '#fff'}`와 같이 프롭스에서 유용하게 사용할 수 있습니다.
 
-#### 3-5-4. Concise and flexible
-Try to make props as simple as possible but flexible. You can able to achieve this by justifying minimal requirements and handing over authority to users if more specs are required.
-For example, below `Button` has type `loading` and `disabled` and have `title` and `onPress` function.
+#### 3-5-4. 간결하고 유연하게
+가능한 한 단순하지만 유연하게 Props를 정의합니다. 최소한의 요구 사항을 정당화하고 더 많은 사양이 필요한 경우 사용자에게 권한을 넘겨줌으로써 이를 달성할 수 있습니다.
+예를 들어 `Button` 아래에는 `loading` 및 `disabled` 유형이 있고 `title` 및 `onPress` 기능이 있습니다.
 ```tsx
 type Props = {
   type?: 'loading' | 'disabled' | undefined,
@@ -444,7 +444,7 @@ function Button({
   );
 };
 ```
-If above code is the minimal requirement to use in the product, keep it the way it is and expose possibility with render function instead of exposing more and more props.
+위의 코드가 제품에서 사용하기 위한 최소한의 요구 사항이라면, 점점 더 많은 props를 노출시키는 대신 그대로 유지하고 렌더 콜백을 제공함으로 그 가능성을 노출합니다.
 ```tsx
 type Props = {
   type?: 'loading' | 'disabled' | undefined,
