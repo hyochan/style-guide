@@ -23,7 +23,7 @@ discussions
 ```sh
 myCompanies
 - <companyID>
-  - ref
+	- ref
 ```
 
 ### 3. 컬랙션이 여러 상위 컬랙션 도큐먼트를 참조해야하는 경우 최상위 컬랙션으로 생성
@@ -33,9 +33,9 @@ companies
 - <compnyID>
 	- replies
 		- <replyID>
-		    - id
-		    - text
-		    - createdAt
+				- id
+				- text
+				- createdAt
 
 // 여러 회사의 댓글을 봐야하는 경우
 - replies

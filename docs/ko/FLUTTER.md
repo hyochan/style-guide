@@ -96,10 +96,9 @@ class User {
 
 ## 2. 폴더 구조
 
-
 ## 3. 코드 스타일
 
-### 3-1. Import
+### 3-1. Import 문
 
 #### 3-1-1. 현재 제품의 패키지는 `show`를 붙입니다.
 현재 어플리케이션 패키지는 `show`를 되도록 사용해줍니다. 다른 패키지들은 사용하지 않습니다.
@@ -146,30 +145,30 @@ import 'package:kingtalk/widgets/common/styles.dart'
 var discussion = item as DiscussionModel;
 
 return FlatList(
-	buildItem: (item, index) {
-		var company = await CompanyRepository.instance.getOne();
-	
-		return CompanyListItem(
-		...
+  buildItem: (item, index) {
+    var company = await CompanyRepository.instance.getOne();
+  
+    return CompanyListItem(
+    ...
 ```
 > 위 코드에서는 오류가 발생합니다. UI를 그리는 시점에서 async 함수를 호출하기 때문입니다. [Widget build] 메소드는 `async`가 될 수 없습니다. 따라서 아래와 같은 lint error도 확인할 수 있습니다. 	
 
 ```sh
 The await expression can only be used in an async function.  
-	Try marking the function body with either 'async' or 'async*'.dart(await_in_wrong_context)
+  Try marking the function body with either 'async' or 'async*'.dart(await_in_wrong_context)
 ```
 
 다음과 같이 수정합니다.
 ```dart
 return FutureBuilder(
-	future: CompanyRepository.instance.getOne(),
-	builder: (context, snapshot) {
+  future: CompanyRepository.instance.getOne(),
+  builder: (context, snapshot) {
 
-	if (snapshot.hasData) {
-		var company = snapshot.data;
-	
-		return CompanyListItem(
-		...
+  if (snapshot.hasData) {
+    var company = snapshot.data;
+  
+    return CompanyListItem(
+    ...
 ```
 > 위와 같이 UI 렌더링 시점에서 다른 데이터를 필요로 할 때만 사용합니다.
 > 
@@ -199,9 +198,9 @@ Future<void> fetchNext(String startAfter) async {
 
 ```dart
 var companiesDiscussionState =
-	Provider.of<CompaniesDiscussionsState>(context, listen: false);
+  Provider.of<CompaniesDiscussionsState>(context, listen: false);
 var myCompaniesDiscussionState =
-	Provider.of<MyCompaniesDiscussionsState>(context, listen: false);
+  Provider.of<MyCompaniesDiscussionsState>(context, listen: false);
 final titleController = useTextEditingController(text: '');
 final contentController = useTextEditingController(text: '');
 final contentSize = useState(0);
@@ -210,3 +209,59 @@ final loading = useState(false);
 ```
 
 위와 같이 provider 변수들은 필요할 때 바로 사용하지 않고 미리 선언해서 사용합니다. 이는 현재 Widget에서 어떤 provider 변수들을 거시적으로 보기 위함입니다. !사용하지 않으면 삭제해줍니다.
+
+## 4. Firestore
+
+
+### 4-1. State 변수와의 활용
+
+#### 4-1-1. Async 함수를 호출 한 이후에는 꼭 `context.mounted`를 확인해주세요.
+```dart
+var users = await getUsers();
+
+if (context.mounted) {
+  userState.value = users;
+}
+```
+> 레퍼런스: https://github.com/flutter/flutter/issues/110694
+
+### 1-2. 절대로 아래와 같이 state 변수에 바로 `await` 문을 써서 대입하지 마세요.
+```dart
+discussionState.value =
+            await DiscussionRepository.instance.companiesDiscussions();
+```
+> 위와 같이 했을 떄 `context` 가 `unmounted` 되면 오류를 유발합니다.
+
+
+### 4-2. 검색
+
+#### 4-2-1. 복수 column 검색
+```dart
+loading.value = true;
+
+// The result on column 'title'
+var searchedResultWithTitle = await DiscussionRepository.instance.getMany(
+  companyCode: company.code,
+  searchText: searchTextController.text,
+  searchColumn: 'title',
+);
+
+// The result on column 'content'
+var searchedResultWithContent =
+  await DiscussionRepository.instance.getMany(
+  companyCode: company.code,
+  searchText: searchTextController.text,
+  searchColumn: 'content',
+);
+
+if (context.mounted) {
+  searchedState.value = <DiscussionModel>{
+    ...searchedResultWithTitle,
+    ...searchedResultWithContent
+  }.toList();
+
+  resultCount.value = searchedState.value.length;
+  loading.value = false;
+}
+```
+> 꼭 복수 `column`을 검색이 불가피할 때는 두개의 쿼리를 검색해서 중복을 방지하는 코드를 작성하세요. Firestore는 `or` 쿼리를 수행할 수 없습니다.
