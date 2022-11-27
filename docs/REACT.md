@@ -168,7 +168,7 @@ YourApp/
 
 ### 3-1. Import
 
-#### 3-1-1. Follows the dooboolab eslint package
+#### 3-1-1. Follows the [dooboolab eslint](https://github.com/dooboolab/eslint-config) package
 
 Follow the import rules of `@dooboo/eslint-config-react` for React and `@dooboo/eslint-config-react-native` for React Native.
 
@@ -183,7 +183,7 @@ function Page({}: Props) {}
 function Page({}: Props): ReactElement {}
 ```
 
-### 3-2-2. Function component without arrow function
+#### 3-2-2. Function component without arrow function
 
 ```tsx
 // Don't
@@ -215,7 +215,7 @@ function Button({
   > This lets developers check what kind of styles are nested in the component. It is also easy to handle reusable component's style without knowing what styles are nested with the `style` prop. The user would want to change its `margin` or `padding`.
 
 ### 3-4. Conditional statements
-### 3-4-1. Guard and early return
+#### 3-4-1. Guard and early return
 
 ```ts
 // Don't
@@ -242,7 +242,7 @@ message = 'User is not busy';
 ```
 > [Replace nested conditional with guard clauses](https://refactoring.guru/replace-nested-conditional-with-guard-clauses) makes your statements more concise and readable.
 
-### 3-4-2. Simplify duplicate function call
+#### 3-4-2. Simplify duplicate function call
 ```ts
 // Don't
 availableForCall(user) ? call('010-xxxx-xxxx') : call('119');
@@ -252,7 +252,7 @@ call(availableForCall(user) ? '010-xxxx-xxxx' || '119');
 ```
 > Try to remove the duplication function calls if possible.
 
-### 3-4-3. Table Driven method
+#### 3-4-3. Table Driven method
 Table driven method helps you build better software with decision tables in place of `if-else`.
 ```ts
 // Don't
@@ -293,7 +293,7 @@ public string GetMonthName(string language, int month) => monthDictionary[langua
 ```
 > Refer to [article](https://medium.com/swlh/replacing-logical-statements-with-table-driven-methods-da1114512134).
 
-### 3-4-4. Extract function
+#### 3-4-4. Extract function
 Extracting function is often used to make code more readable.
 ```ts
 // Don't
@@ -325,16 +325,15 @@ const setYoutubeVideo = async (url: string): Promise<void> => {
   if (urlType === 'youtube') {
   const videoURL = await getYouTubeDetails(url);
 
-  if (videoURL) {
-    setYoutubeURL(videoURL);
-  }
+    if (videoURL) {
+      setYoutubeURL(videoURL);
+    }
   }
 };
 
 setYoutubeVideo(url);
 ```
-> It is ambiguous to know what the developer aims for when writing `if (str.length % 2)` until newcomers dissect the logic. Try to extract the function and make it more meaninful. Also, the [youtube video](https://www.youtube.com/watch?v=0GiyKv6ozP8) teaches you how to extract the function in vscode more easily.
-
+> In the above `if (str.length % 2)` code, the intention of the code is unknown until the developer who is new to the code dissects the logic. In this case, you need to extract the function and make it more meaningful. Also, [youtube video](https://www.youtube.com/watch?v=0GiyKv6ozP8) tells how to extract functions from vscode more easily.
 
 ### 3-5. Component
 
@@ -513,6 +512,7 @@ function Button({
 
 ### 3-6. Reusable Component
 #### 3-6-1. Never directly run the logic
+Never abstract the business logic in a reusable component. Deliver them to the business manager.
 ```tsx
 // Don't
 function Button(): ReactElement {
@@ -545,7 +545,7 @@ function Button(): ReactElement {
 
 ### 3-7. Types
 
-### 3-7-1. Prefer using `type` instead of `interface`
+#### 3-7-1. Prefer using `type` instead of `interface`
 ```ts
 // Don't => But only when needed
 interface Props {}
@@ -554,7 +554,7 @@ interface Props {}
 type Props = {}
 ```
 
-### 3-7-2. Don't inject type when it can be inferred
+#### 3-7-2. Don't inject type when it can be inferred
 ```ts
 // Don't
 const name = useState<string>('');

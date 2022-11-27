@@ -133,7 +133,7 @@ YourApp/
 ```
 > jest, babel, eslint, typescript, flow, git에 대한 구성 파일은 모두 `src` 디렉토리에서 분리됩니다.
 
-### 2-2. Tests
+### 2-2. 테스트
 ### 2-2-1. 테스트 확장 파일은 `test` 디렉토리에 포함
 ```
 YourApp/
@@ -150,7 +150,7 @@ YourApp/
 ```
 > 테스트 파일은 모두 `test` 디렉토리 아래에 있어야 합니다.
 
-### 2-2-2. Unit test는 `src` 디렉토리에 포함되어도 무방
+### 2-2-2. Unit 테스트는 `src` 디렉토리에 포함되어도 무방
 ```
 YourApp/
 ├─ src/
@@ -159,7 +159,7 @@ YourApp/
 │     └─ localize.spec.ts <=== Unit test may stays along with original file
 ```
 
-### 2-2-3. Mock files in `__mocks__` dir
+### 2-2-3. Mock 파일들은 `__mocks__` 폴더 안에
 ```
 YourApp/
 ├─ __mocks__/
@@ -170,13 +170,13 @@ YourApp/
 
 ### 3-1. Import
 
-#### 3-1-1. dooboolab eslint 패키지를 따름
+#### 3-1-1. [dooboolab eslint](https://github.com/dooboolab/eslint-config) 패키지를 따름
 
 React의 경우 `@dooboo/eslint-config-react`, React Native의 경우 `@dooboo/eslint-config-react-native`의 import 규칙을 따릅니다.
 
 ### 3-2. 함수
 
-#### 3-2-1. 함수에 리턴타입을 명시
+#### 3-2-1. 함수에 리턴 타입을 명시
 
 ```tsx
 // Don't
@@ -186,7 +186,7 @@ function Page({}: Props) {}
 function Page({}: Props): ReactElement {}
 ```
 
-### 3-2-2. 화살표가 없는 함수 컴포넌트
+#### 3-2-2. 화살표가 없는 함수 컴포넌트
 
 ```tsx
 // Don't
@@ -221,7 +221,7 @@ function Button({
 
 ### 3-4. 조건문
 
-### 3-4-1. 가드와 조기 리턴
+#### 3-4-1. 가드와 조기 리턴
 
 ```ts
 // Don't
@@ -249,7 +249,7 @@ message = 'User is not busy';
 ```
 > [가드 절로 중첩된 조건문 교체](https://refactoring.guru/replace-nested-conditional-with-guard-clauses)를 사용하면 문장이 더 간결하고 읽기 쉬워집니다.
 
-### 3-4-2. 중복 함수 호출 단순화
+#### 3-4-2. 중복 함수 호출 단순화
 
 ```ts
 // Don't
@@ -260,7 +260,7 @@ call(availableForCall(user) ? '010-xxxx-xxxx' || '119');
 ```
 > 가능하면 중복 함수 호출을 제거하십시오.
 
-### 3-4-3. 테이블 기반 메소드
+#### 3-4-3. 테이블 기반 메소드
 
 테이블 기반 방법은 `if-else` 대신 결정 테이블을 사용하여 더 나은 소프트웨어를 구축하도록 도와줍니다.
 
@@ -303,7 +303,7 @@ public string GetMonthName(string language, int month) => monthDictionary[langua
 ```
 > Refer to [article](https://medium.com/swlh/replacing-logical-statements-with-table-driven-methods-da1114512134).
 
-### 3-4-4. 함수 추출
+#### 3-4-4. 함수 추출
 함수 추출은 종종 코드를 더 읽기 쉽게 만드는 데 사용됩니다.
 ```ts
 // Don't
@@ -335,15 +335,15 @@ const setYoutubeVideo = async (url: string): Promise<void> => {
   if (urlType === 'youtube') {
   const videoURL = await getYouTubeDetails(url);
 
-  if (videoURL) {
-    setYoutubeURL(videoURL);
-  }
+    if (videoURL) {
+      setYoutubeURL(videoURL);
+    }
   }
 };
 
 setYoutubeVideo(url);
 ```
-> 개발자가 `if (str.length % 2)` 코드를 작성하면 코드를 처음보는 개발자는 로직을 해부하기 전까지 코드의 의도를 알 수 없습니다. 이럴 때는 함수를 추출하여 더 의미 있게 만들어야 합니다. 또한 [youtube 동영상](https://www.youtube.com/watch?v=0GiyKv6ozP8)은 vscode에서 함수를 보다 쉽게 ​​추출하는 방법을 알려줍니다.
+> 위 `if (str.length % 2)` 코드는 해당 코드를 처음 접하는 개발자가 로직을 해부하기 전까지 코드의 의도를 알 수 없습니다. 이럴 때는 함수를 추출하여 더 의미 있게 만들어야 합니다. 또한 [youtube 동영상](https://www.youtube.com/watch?v=0GiyKv6ozP8)은 vscode에서 함수를 보다 쉽게 ​​추출하는 방법을 알려줍니다.
 
 
 ### 3-5. 컴포넌트
@@ -521,7 +521,8 @@ function Button({
 ```
 
 ### 3-6. 재사용 컴포넌트
-#### 3-6-1. 논리를 직접 실행 차단
+#### 3-6-1. 논리 직접 실행 차단
+재사용 가능한 구성 요소에서 비즈니스 논리를 추상화하지 마십시오. 비즈니스 관리자에게 전달하십시오.
 ```tsx
 // Don't
 function Button(): ReactElement {
@@ -549,12 +550,12 @@ function Button(): ReactElement {
 
 <img src="https://github.com/hyochan/code-convention/blob/main/assets/4-1.%20yes%20callback.png" width="420"/>
 
-> UI 구성 요소에 중첩된 자식 구성 요소가 여러 개 있는 경우 공급자를 사용하여 리팩터링을 시도하십시오. 이 경우 [recoil](https://recoiljs.org)을 선호합니다.
+> UI 구성 요소에 중첩된 자식 구성 요소가 여러 개 있는 경우 provider등을 사용하여 리팩터링을 시도하십시오. 이 경우 [recoil](https://recoiljs.org)을 선호합니다.
 
 
 ### 3-7. 타입
 
-### 3-7-1. `Interface` 대신 `Type` 사용 선호
+#### 3-7-1. `Interface` 대신 `Type` 사용 선호
 ```ts
 // Don't => But only when needed
 interface Props {}
@@ -563,7 +564,7 @@ interface Props {}
 type Props = {}
 ```
 
-### 3-7-2. 유추할 수 있는 타입 주입 방지
+#### 3-7-2. 유추할 수 있는 타입 주입 방지
 ```ts
 // Don't
 const name = useState<string>('');
