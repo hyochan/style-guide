@@ -97,7 +97,7 @@ class User {
 ## 2. Folder structures
 
 ### 2-1. Assets
-### 2-1-1. Separate assets from the sourcecode
+#### 2-1-1. Separate assets from the sourcecode
 Assets are all kinds of resources used in applications. They should not stay at the same level with sourcecode.
 
 ```
@@ -109,7 +109,7 @@ YourApp/
 ├─ src/
 ```
 
-### 2-1-2. Separate the config files
+#### 2-1-2. Separate the config files
 Config files should be separated from the sourcecode.
 
 ```
@@ -132,7 +132,7 @@ YourApp/
 > The config files for jest, babel, eslint, typescript, flow, git are all separated from the `src` directory.
 
 ### 2-2. Tests
-### 2-2-1. Test extension files in `test` dir
+#### 2-2-1. Test extension files in `test` dir
 ```
 YourApp/
 ├─ src/
@@ -148,7 +148,7 @@ YourApp/
 ```
 > Test files should all lie underd `test` dir.
 
-### 2-2-2. Unit tests can be included in `src`
+#### 2-2-2. Unit tests can be included in `src`
 ```
 YourApp/
 ├─ src/
@@ -157,7 +157,7 @@ YourApp/
 │     └─ localize.spec.ts <=== Unit test may stay along with the original file
 ```
 
-### 2-2-3. Mock files in `__mocks__` dir
+#### 2-2-3. Mock files in `__mocks__` dir
 ```
 YourApp/
 ├─ __mocks__/
