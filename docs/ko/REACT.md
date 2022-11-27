@@ -529,9 +529,9 @@ function Button(): ReactElement {
   );
 };
 ```
-<img src="https://github.com/hyochan/coding-convention/blob/main/assets/4-1.%20no%20direct%20run.png?raw=true" width="420"/>
+<img src="https://github.com/hyochan/code-convention/blob/main/assets/4-1.%20no%20direct%20run.png?raw=true" width="420"/>
 
-<img src="https://github.com/hyochan/coding-convention/blob/main/assets/4-1.%20yes%20callback.png" width="420"/>
+<img src="https://github.com/hyochan/code-convention/blob/main/assets/4-1.%20yes%20callback.png" width="420"/>
 
 > When UI components have multiple nested child components, try refactoring with provider. We prefer [recoil](https://recoiljs.org) in this case.
 

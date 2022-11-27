@@ -5,7 +5,7 @@
 2. Class - `PascalCase`
 3. Enum - `PascalCase`
   1. Enum values - `camelCase`
-    ```ts
+    ```dart
     enum DoobooScreen { iOS, android, helloWorld, testDevice }
     ```
 4. Constants - `camelCase`
@@ -17,7 +17,7 @@
 #### 1-2-1. 도메인이 있는 경우 파일 이름 및 구성 요소에 prefix 사용
 파일 이름에 도메인을 접두사로 추가합니다.
 
-```ts
+```dart
 // Do
 company_add.dart
 company_edit.dart
@@ -36,7 +36,7 @@ class CompanyEdit extends HookWidget {}
 ```
 
 #### 1-2-2. 도메인이 있는 경우 함수에 suffix 사용
-```ts
+```dart
 // Do
 const onAddCompany () {}
 const onDeleteCompany () {}
@@ -79,7 +79,7 @@ async function readAsync() async {
 ### 1-3. Avoid redundancy
 
 #### 1-3-1. Avoid adding domain to function when it is predictable.
-```ts
+```dart
 class User {
   // Don't
   void addUser() {

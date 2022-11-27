@@ -1,11 +1,11 @@
-## 1. 네이밍
+## 1. Naming
 
 ### 1-1. Rules
 1. File - `lower_camel_case`.dart
 2. Class - `PascalCase`
 3. Enum - `PascalCase`
   1. Enum values - `camelCase`
-    ```ts
+    ```dart
     enum DoobooScreen { iOS, android, helloWorld, testDevice }
     ```
 4. Constants - `camelCase`
@@ -17,7 +17,7 @@
 #### 1-2-1. Use prefixes to the filenames and components if there is a domain
 Put domain as a prefix to filename.
 
-```ts
+```dart
 // Do
 company_add.dart
 company_edit.dart
@@ -29,13 +29,14 @@ edit_company.dart
 
 For widget, name them like below,
 
-``` Do
+```dart
+// Do
 class CompanyAdd extends HookWidget {}
 class CompanyEdit extends HookWidget {}
 ```
 
 #### 1-2-2. Use suffixes to functions if there is a domain
-```ts
+```dart
 // Do
 const onAddCompany () {}
 const onDeleteCompany () {}
@@ -48,8 +49,8 @@ const onCompanyDelete () {}
 #### 1-2-3. Choose the right boolean prefix
 Usually, developers put all boolean prefix with `is` and it often causes confusion. For example below.
 
-```ts
-const isFriend = () => user.friends.length > 0;
+```dart
+final isFriend = () => user.friends.length > 0;
 ```
 Above code is not quite readable. It'd be better to choose the right prefix. In this case, `hasFried` makes sense.
 
