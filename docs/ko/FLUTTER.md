@@ -4,10 +4,10 @@
 1. File - `lower_camel_case`.dart
 2. Class - `PascalCase`
 3. Enum - `PascalCase`
-  1. Enum values - `camelCase`
-    ```dart
-    enum DoobooScreen { iOS, android, helloWorld, testDevice }
-    ```
+   1. Enum values - `camelCase`
+      ```dart
+      enum DoobooScreen { iOS, android, helloWorld, testDevice }
+      ```
 4. Constants - `camelCase`
 5. Object, classes, variables and functions - `camelCase`
 6. Asset file name - `lower_snake_case`.png
@@ -76,7 +76,7 @@ async function readAsync() async {
 }
 ```
 
-### 1-3. 불필요함 방지
+### 1-3. 과잉 방지
 
 #### 1-3-1. 예측 가능한 함수에 도메인 제외
 ```dart

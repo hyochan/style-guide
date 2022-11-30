@@ -78,7 +78,7 @@ async function readAsync() {
 }
 ```
 
-### 1-3. 불필요함 방지
+### 1-3. 과잉 방지
 
 #### 1-3-1. 예측 가능한 함수에 도메인 제외
 ```ts
@@ -415,7 +415,7 @@ function Parent() {
 > 여기서 `isHighlighted` 조건은 `Child` 컴포넌트 프롭스에서 두 번 이상 사용됩니다. 이를 추출하여 유지보수 시 개발자들이 부작용 대신 대상 코드에 집중할 수 있게 도와줍니다.
 > 또한 `&&` 연산자를 사용하는 것은 **[3-5-2](#3-5-2-렌더링-시--연산자-사용-방지)**와 달리 `{isHighlighted && {color: '#fff'}`와 같이 프롭스에서 유용하게 사용할 수 있습니다.
 
-#### 3-5-4. 간결하고 유연하게
+#### 3-5-4. 간결하지만 유연함
 가능한 한 단순하지만 유연하게 Props를 정의합니다. 최소한의 요구 사항을 정당화하고 더 많은 사양이 필요한 경우 사용자에게 권한을 넘겨줌으로써 이를 달성할 수 있습니다.
 예를 들어 `Button` 아래에는 `loading` 및 `disabled` 유형이 있고 `title` 및 `onPress` 기능이 있습니다.
 ```tsx
@@ -449,8 +449,7 @@ function Button({
 type Props = {
   type?: 'loading' | 'disabled' | undefined,
   onPress?: () => {}
-  render?: (type: 'loading' | 'disabled' | undefined) => ReactElement
-  title: string
+  title: string | (type: 'loading' | 'disabled' | undefined) => ReactElement;
 }
 
 function Button({
