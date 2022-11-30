@@ -239,12 +239,12 @@ if (checkStatus(user) === 'busy') {
 
 // Do
 if (checkStatus(user) !== 'busy') {
-  message = 'User is busy!';
+  message = 'User is not busy!';
   availableForCall(user) ? call('010-xxxx-xxxx') : call('119');
   return;
 }
 
-message = 'User is not busy';
+message = 'User is busy';
 
 ```
 > [가드 절로 중첩된 조건문 교체](https://refactoring.guru/replace-nested-conditional-with-guard-clauses)를 사용하면 문장이 더 간결하고 읽기 쉬워집니다.
@@ -256,7 +256,7 @@ message = 'User is not busy';
 availableForCall(user) ? call('010-xxxx-xxxx') : call('119');
 
 // Do
-call(availableForCall(user) ? '010-xxxx-xxxx' || '119');
+call(availableForCall(user) ? '010-xxxx-xxxx' : '119');
 ```
 > 가능하면 중복 함수 호출을 제거하십시오.
 
@@ -266,7 +266,7 @@ call(availableForCall(user) ? '010-xxxx-xxxx' || '119');
 
 ```ts
 // Don't
-public string GetMontName(int month, string language) {
+public string GetMonthName(int month, string language) {
   if (month == 1 && language == "EN") {
     return "January";
   } else if (month == 1 && language == "DA") {
@@ -316,18 +316,22 @@ const checkString = (str: string) => {
 }
 
 // Do
-const extractStr = (str: string) => {
-  if (str.length % 2 === 0) {
-    return str.slice(str.length / 2, str.length);
+function getStringLengthWithoutLengthProperty(string) {
+  let subString = string.slice();
+  let counter = 0;
+
+  while (subString !== '') {
+    counter++;
+    subString = subString.slice(1);
   }
 
-  return str;
+  return counter;
 }
 
 const checkString = (str: string) => {
-  const extractedStr = extractStr(str);
+  const strLength = getStringLengthWithoutLengthProperty(str);
 
-  setString(str); 
+  setString(`${str}: ${counter}`); 
 }
 
 // Do
@@ -393,14 +397,14 @@ function Parent() {
   const [isHighlighted, setIsHighlighted] = useState(false);
 
   if(isHighlighted) {
-  return (
-    <div>
-      <Child
-        style={{color: '#fff'}}
-        headerColor='red'
-      />
-  </div>
-  )
+    return (
+      <div>
+        <Child
+          style={{color: '#fff'}}
+          headerColor='red'
+        />
+      </div>
+    );
   }
 
   return (
@@ -422,6 +426,7 @@ type Props = {
   onPress?: () => {}
   title: string
 }
+
 function Button({
   type,
   onPress,
@@ -443,6 +448,7 @@ function Button({
 };
 ```
 위의 코드가 제품에서 사용하기 위한 최소한의 요구 사항이라면, 점점 더 많은 props를 노출시키는 대신 그대로 유지하고 렌더 콜백을 제공함으로 그 가능성을 노출합니다.
+
 ```tsx
 type Props = {
   type?: 'loading' | 'disabled' | undefined,
@@ -482,7 +488,6 @@ function Button({
 <Button textColor={textColor} />
 ```
 > 스타일 프롭스에 단일 속성을 노출하면 복잡할 뿐만 아니라 구성 요소들을 유지 관리하기 어려워집니다. 예 [flutter_calendar_carousel](https://github.com/dooboolab/flutter_calendar_carousel).
-
 
 #### 3-5-6. 여러 조건에 삼항 연산자 사용 방지
 렌더링 시 [삼항 연산자](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator)를 여러 번 사용하면 <span style="color: #00D9D5 ">가독성</span>이 떨어집니다.
@@ -532,7 +537,7 @@ function Button({
 ```
 
 ### 3-6. 재사용 컴포넌트
-#### 3-6-1. 논리 직접 실행 차단
+#### 3-6-1. 실행 차단
 재사용 가능한 구성 요소에서 비즈니스 논리를 추상화하지 마십시오. 비즈니스 관리자에게 전달하십시오.
 ```tsx
 // Don't

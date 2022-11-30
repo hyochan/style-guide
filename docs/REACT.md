@@ -146,7 +146,7 @@ YourApp/
 │     └─ pages
 │        └─ HelloWorld.test.tsx
 ```
-> Test files should all lie underd `test` dir.
+> Test files should all lie under `test` dir.
 
 #### 2-2-2. Unit tests can be included in `src`
 ```
@@ -211,7 +211,7 @@ function Button({
   ...
 });
 ```
-  > You can see the exmaple in [Button L62-L63](https://github.com/dooboolab/dooboo-ui/blob/c0d114c46bbba5a8a8a05e91a782a682e4803dac/main/Button/index.tsx#L62-L63).
+  > You can see the example in [Button L62-L63](https://github.com/dooboolab/dooboo-ui/blob/c0d114c46bbba5a8a8a05e91a782a682e4803dac/main/Button/index.tsx#L62-L63).
   > This lets developers check what kind of styles are nested in the component. It is also easy to handle reusable component's style without knowing what styles are nested with the `style` prop. The user would want to change its `margin` or `padding`.
 
 ### 3-4. Conditional statements
@@ -233,12 +233,12 @@ if (checkStatus(user) === 'busy') {
 
 // Do
 if (checkStatus(user) !== 'busy') {
-  message = 'User is busy!';
+  message = 'User is not busy!';
   availableForCall(user) ? call('010-xxxx-xxxx') : call('119');
   return;
 }
 
-message = 'User is not busy';
+message = 'User is busy';
 ```
 > [Replace nested conditional with guard clauses](https://refactoring.guru/replace-nested-conditional-with-guard-clauses) makes your statements more concise and readable.
 
@@ -248,7 +248,7 @@ message = 'User is not busy';
 availableForCall(user) ? call('010-xxxx-xxxx') : call('119');
 
 // Do
-call(availableForCall(user) ? '010-xxxx-xxxx' || '119');
+call(availableForCall(user) ? '010-xxxx-xxxx' : '119');
 ```
 > Try to remove the duplication function calls if possible.
 
@@ -298,26 +298,34 @@ Extracting function is often used to make code more readable.
 ```ts
 // Don't
 const checkString = (str: string) => {
-  if (str.length % 2 === 0) {
-    str.slice(str.length / 2, str.length);
+  let subString = string.slice();
+  let counter = 0;
+
+  while (subString !== '') {
+    counter++;
+    subString = subString.slice(1);
   }
 
-  setString(str); 
+  setString(`${str}: ${counter}`); 
 }
 
 // Do
-const extractStr = (str: string) => {
-  if (str.length % 2 === 0) {
-    return str.slice(str.length / 2, str.length);
+function getStringLengthWithoutLengthProperty(string) {
+  let subString = string.slice();
+  let counter = 0;
+
+  while (subString !== '') {
+    counter++;
+    subString = subString.slice(1);
   }
 
-  return str;
+  return counter;
 }
 
 const checkString = (str: string) => {
-  const extractedStr = extractStr(str);
+  const strLength = getStringLengthWithoutLengthProperty(str);
 
-  setString(str); 
+  setString(`${str}: ${counter}`); 
 }
 
 // Do
@@ -370,8 +378,8 @@ function Parent() {
   return (
   <div>
     <Child
-    style={...{isHighlighted && {color: '#fff'}}}
-    headerColor={isHighlighted ? 'red' : 'blue'}
+      style={...{isHighlighted && {color: '#fff'}}}
+      headerColor={isHighlighted ? 'red' : 'blue'}
     />
   </div>
   );
@@ -384,19 +392,17 @@ function Parent() {
   if(isHighlighted) {
     return (
       <div>
-      <Child
-        style={{color: '#fff'}}
-        headerColor='red'
-      />
-    </div>
+        <Child
+          style={{color: '#fff'}}
+          headerColor='red'
+        />
+      </div>
     )
   }
 
   return (
     <div>
-      <Child
-      headerColor='blue'
-      />
+      <Child headerColor='blue' />
     </div>
   );
 }
@@ -413,6 +419,7 @@ type Props = {
   onPress?: () => {}
   title: string
 }
+
 function Button({
   type,
   onPress,
@@ -479,6 +486,7 @@ function Button({
 
 #### 3-5-6. Avoid using the ternary operator with multiple conditions
 If [ternary operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) is used multiple times when rendering, it hurts <span style="color: #00D9D5">readability</span>.
+
 ```tsx
 function Button({
   type,
@@ -525,7 +533,7 @@ function Button({
 ```
 
 ### 3-6. Reusable Component
-#### 3-6-1. Never directly run the logic
+#### 3-6-1. Block execution
 Never abstract the business logic in a reusable component. Deliver them to the business manager.
 ```tsx
 // Don't
