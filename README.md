@@ -1,4 +1,4 @@
-## Code Convention
+## Style Guide
 
 > The repository exists so that developers can define the correct coding convention together.
 

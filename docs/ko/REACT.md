@@ -381,8 +381,8 @@ function Parent() {
   return (
   <div>
     <Child
-    style={...{isHighlighted && {color: '#fff'}}}
-    headerColor={isHighlighted ? 'red' : 'blue'}
+      style={...{isHighlighted && {color: '#fff'}}}
+      headerColor={isHighlighted ? 'red' : 'blue'}
     />
   </div>
   );
@@ -395,27 +395,25 @@ function Parent() {
   if(isHighlighted) {
   return (
     <div>
-    <Child
-      style={{color: '#fff'}}
-      headerColor='red'
-    />
+      <Child
+        style={{color: '#fff'}}
+        headerColor='red'
+      />
   </div>
   )
   }
 
   return (
-  <div>
-    <Child
-    headerColor='blue'
-    />
-  </div>
+    <div>
+      <Child headerColor='blue' />
+    </div>
   );
 }
 ```
 > 여기서 `isHighlighted` 조건은 `Child` 컴포넌트 프롭스에서 두 번 이상 사용됩니다. 이를 추출하여 유지보수 시 개발자들이 부작용 대신 대상 코드에 집중할 수 있게 도와줍니다.
 > 또한 `&&` 연산자를 사용하는 것은 **[3-5-2](#3-5-2-렌더링-시--연산자-사용-방지)**와 달리 `{isHighlighted && {color: '#fff'}`와 같이 프롭스에서 유용하게 사용할 수 있습니다.
 
-#### 3-5-4. 간결하지만 유연함
+#### 3-5-4. 간결함과 유연함
 가능한 한 단순하지만 유연하게 Props를 정의합니다. 최소한의 요구 사항을 정당화하고 더 많은 사양이 필요한 경우 사용자에게 권한을 넘겨줌으로써 이를 달성할 수 있습니다.
 예를 들어 `Button` 아래에는 `loading` 및 `disabled` 유형이 있고 `title` 및 `onPress` 기능이 있습니다.
 ```tsx
@@ -517,6 +515,20 @@ function Button({
     // 3. Good with single condition
     return loading ? ... : return ...
 }
+```
+
+#### 3-5-7. Rest 프롭스
+아래와 같이 spread operator로 나머지 프롭스들을 extract 해주는 경우에는 `rest`용어를 사용해주세요.
+`otherProps, restProps` 등등 다양하게 사용될 수 있는 용어를 제한하여 커뮤니케이션을 통일하기 위함입니다.
+
+```tsx
+function Button({
+  type,
+  onPress,
+  title,
+  onPress
+  ...rest,
+}: Props): ReactElement {
 ```
 
 ### 3-6. 재사용 컴포넌트

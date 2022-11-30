@@ -510,6 +510,20 @@ function Button({
 }
 ```
 
+#### 3-5-7. Rest Props
+Use the `rest` term when extracting the rest of the props with the spread operator as shown below.
+This is to unify communication by limiting terms that can be used in various ways such as `otherProps, restProps`.
+
+```tsx
+function Button({
+  type,
+  onPress,
+  title,
+  onPress
+  ...rest,
+}: Props): ReactElement {
+```
+
 ### 3-6. Reusable Component
 #### 3-6-1. Never directly run the logic
 Never abstract the business logic in a reusable component. Deliver them to the business manager.

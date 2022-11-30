@@ -174,7 +174,7 @@ import 'package:kingtalk/widgets/common/styles.dart'
 유틸리티성 코드들은 묶어서 한 파일로 제공하는 것이 관리하기 편할 수도 있으나 위젯들은 그렇지 않습니다.
 다만 [UserListItem]과 [UserContainerItem]이 존재할 경우에는 [UserContainerItem]이 UI를 위해 존재하는 것이 아니기에 `user_list_item.dart` 파일이 들어가도 무방합니다. 가급적 위젯은 파일을 분류해서 작업합니다.
 
-### 3-3. Singleton
+### 3-3. 싱글톤
 
 #### 3-3-1. Singleton or single instance 자유롭게 사용
 싱글톤을 쓸지 싱글 인스턴스를 쓸지는 정하지 않습니다만 Firestore같은 경우 single instance를 사용하고 있습니다.
@@ -198,8 +198,8 @@ return FlatList(
 > 위 코드에서는 오류가 발생합니다. UI를 그리는 시점에서 async 함수를 호출하기 때문입니다. [Widget build] 메소드는 `async`가 될 수 없습니다. 따라서 아래와 같은 lint error도 확인할 수 있습니다. 	
 
 ```sh
-The await expression can only be used in an async function.  
-  Try marking the function body with either 'async' or 'async*'.dart(await_in_wrong_context)
+The await expression can only be used in an async function.
+Try marking the function body with either 'async' or 'async*'.dart(await_in_wrong_context)
 ```
 
 다음과 같이 수정합니다.
@@ -216,7 +216,7 @@ return FutureBuilder(
 ```
 > 위와 같이 UI 렌더링 시점에서 다른 데이터를 필요로 할 때만 사용합니다.
 > 
-> 최상위에서 사용할 경우 매번 state가 변경될 때마다 전체 화면이 릴로딩 되므로 사용을 하지 말아주세요.
+> 최상위에서 사용할 경우 매번 state가 변경될 때마다 전체 화면이 리로딩 되므로 사용을 하지 말아주세요.
 
 
 ### 3-5. StreamBuilder
