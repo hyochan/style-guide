@@ -172,6 +172,28 @@ YourApp/
 
 Follow the import rules of `@dooboo/eslint-config-react` for React and `@dooboo/eslint-config-react-native` for React Native.
 
+#### 3-1-2. Manage asset paths in one place
+
+If you don't manage your asset paths, you'll often face problems like the one below.
+```sh
+Module not found: Error: Can't resolve '../icons/btn_add'
+Module not found: Error: Can't resolve '../../icons/btn_back'
+Module not found: Error: Can't resolve '../../../icons/camera'
+```
+
+Instead, we recommend organizing assets in one file like below and export them.
+```ts
+import icAddW from '../../assets/icons/btn_add.png';
+import icBack from '../../assets/icons/btn_back.png';
+import icCamera from '../../assets/icons/camera.png';
+import icCircleX from '../../assets/icons/x_circle.png';
+
+export const IC_ADD_W = icAddW;
+export const IC_BACK = icBack;
+export const IC_CAMERA = icCamera;
+export const IC_CIRCLE_X = icCircleX;
+```
+
 ### 3-2. Function
 
 #### 3-2-1. Function needs return type

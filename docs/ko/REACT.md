@@ -174,6 +174,29 @@ YourApp/
 
 React의 경우 `@dooboo/eslint-config-react`, React Native의 경우 `@dooboo/eslint-config-react-native`의 import 규칙을 따릅니다.
 
+#### 3-1-2. 한 곳에서 자산 경로 관리
+
+자산 경로를 관리하지 않으면 아래와 같은 문제에 자주 직면하게 됩니다.
+```sh
+Module not found: Error: Can't resolve '../icons/btn_add'
+Module not found: Error: Can't resolve '../../icons/btn_back'
+Module not found: Error: Can't resolve '../../../icons/camera'
+```
+
+대신 아래와 같이 에셋을 하나의 파일로 정리하여 내보내기를 권장합니다.
+```ts
+import icAddW from '../../assets/icons/btn_add.png';
+import icBack from '../../assets/icons/btn_back.png';
+import icCamera from '../../assets/icons/camera.png';
+import icCircleX from '../../assets/icons/x_circle.png';
+
+export const IC_ADD_W = icAddW;
+export const IC_BACK = icBack;
+export const IC_CAMERA = icCamera;
+export const IC_CIRCLE_X = icCircleX;
+```
+
+
 ### 3-2. 함수
 
 #### 3-2-1. 함수에 리턴 타입을 명시
@@ -308,8 +331,12 @@ public string GetMonthName(string language, int month) => monthDictionary[langua
 ```ts
 // Don't
 const checkString = (str: string) => {
-  if (str.length % 2 === 0) {
-    str.slice(str.length / 2, str.length);
+  let subString = string.slice();
+  let counter = 0;
+
+  while (subString !== '') {
+    counter++;
+    subString = subString.slice(1);
   }
 
   setString(str); 
