@@ -554,6 +554,32 @@ function Button({
 }: Props): ReactElement {
 ```
 
+#### 3-5-8. Remove unnecessary render function
+Please do not use the `render` function if unnecessarily, as shown below.
+
+```tsx
+function Sample() {
+  const renderHello = () => {
+    return <Text>HELLO</Text>;
+  }
+
+  return <>
+    {renderHello()}
+  </>
+}
+```
+
+Replace render functions element.
+```tsx
+function Sample() {
+  const Hello = <Text>HELLO</Text>;
+
+  return <>
+    {Hello}
+  </>
+}
+```
+
 ### 3-6. Reusable Component
 #### 3-6-1. Block execution
 Never abstract the business logic in a reusable component. Deliver them to the business manager.

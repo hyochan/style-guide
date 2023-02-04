@@ -563,6 +563,32 @@ function Button({
 }: Props): ReactElement {
 ```
 
+#### 3-5-8. 불필요한 render 함수 제거
+불필요하게 아래와 같이 `render` 함수를 사용하지 말아주세요.
+
+```tsx
+function Sample() {
+  const renderHello = () => {
+    return <Text>HELLO</Text>;
+  }
+
+  return <>
+    {renderHello()}
+  </>
+}
+```
+
+특정 기능이 없는 렌더 함수는 element로 대체해주세요.
+```tsx
+function Sample() {
+  const renderHello = <Text>HELLO</Text>;
+
+  return <>
+    {Hello}
+  </>
+}
+```
+
 ### 3-6. 재사용 컴포넌트
 #### 3-6-1. 실행 차단
 재사용 가능한 구성 요소에서 비즈니스 논리를 추상화하지 마십시오. 비즈니스 관리자에게 전달하십시오.
