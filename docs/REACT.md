@@ -216,6 +216,19 @@ class Page extends ReactComponent {}
 function Page({}: Props): ReactElement {}
 ```
 
+#### 3-2-3. Lambda expression with single execution
+
+```tsx
+// don't
+const onPress = () => {
+  doSomething();
+};
+
+// do
+const onPress = () => doSomething('work');
+const onPress = doSomething;
+```
+
 ### 3-3. Style props
 #### 3-3-1. All style props in `styles` and style of current component in `style`
 ```tsx

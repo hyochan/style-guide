@@ -220,6 +220,20 @@ class Page extends ReactComponent {}
 function Page({}: Props): ReactElement {}
 ```
 
+#### 3-2-3. 단일 실행을 사용한 람다 식
+
+```tsx
+// Do
+const onPress = () => {
+  doSomething();
+};
+
+// Don't
+const onPress = () => doSomething('work');
+const onPress = doSomething;
+```
+
+
 ### 3-3. 스타일 프롭스
 
 #### 3-3-1. 모든 스타일 프롭스는 `styles`에 그리고 현 컴포넌트의 스타일은 `style`에 담기
@@ -587,6 +601,18 @@ function Sample() {
     {Hello}
   </>
 }
+```
+
+#### 3-5-9. 하나의 프로퍼티는 한줄로 만들기
+
+```tsx
+// Don't
+<View style={{
+  backgroundColor: 'red',
+}}/>
+
+// Do
+<View style={{backgroundColor: 'red'}}/>
 ```
 
 ### 3-6. 재사용 컴포넌트
