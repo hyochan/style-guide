@@ -593,6 +593,18 @@ function Sample() {
 }
 ```
 
+#### 3-5-9. Single line with single property
+
+```tsx
+// Don't
+<View style={{
+  backgroundColor: 'red',
+}}/>
+
+// Do
+<View style={{backgroundColor: 'red'}}/>
+```
+
 ### 3-6. Reusable Component
 #### 3-6-1. Block execution
 Never abstract the business logic in a reusable component. Deliver them to the business manager.
