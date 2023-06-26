@@ -4,10 +4,9 @@
 1. File - `PascalCase`.tsx
 2. Class - `PascalCase`
 3. Enum - `PascalCase`
-  1. Enum values - `UPPER_SNAKE_CASE`
-     ```ts
-     enum DoobooScreen { IOS, ANDROID, HELLO_WORLD, TEST_DEVICE }
-     ```
+   ```ts
+   enum DoobooScreen { Ios, Android, HelloWorld, TestDevice }
+   ```
 4. Constants - `UPPER_SNAKE_CASE`
 5. Object, classes, variables and functions - `camelCase`
 6. Asset file name - `lower_snake_case`.png
