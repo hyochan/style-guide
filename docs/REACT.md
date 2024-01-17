@@ -50,7 +50,7 @@ Usually, developers put all boolean prefix with `is` and it often causes confusi
 const isFriend = () => user.friends.length > 0;
 ```
 
-Above code is not quite readable. It'd be better to choose the right prefix. In this case, `hasFried` makes sense.
+Above code is not quite readable. It'd be better to choose the right prefix. In this case, `hasFriend` makes sense.
 
 There are a few other prefixes you can choose to write instead of "is". Below are other options we can recommend.
 * has
